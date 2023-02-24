@@ -44,7 +44,7 @@ resource "aws_s3_bucket" "financials" {
   # bucket does not have access logs
   # bucket does not have versioning
   bucket        = "${local.resource_prefix.value}-financials"
-  acl           = "private"
+  acl           = "public"
   force_destroy = true
   tags = merge({
     Name        = "${local.resource_prefix.value}-financials"
@@ -60,6 +60,15 @@ resource "aws_s3_bucket" "financials" {
     yor_trace            = "0e012640-b597-4e5d-9378-d4b584aea913"
   })
 
+}
+
+resource "aws_s3_bucket" "not-financials" {
+  # bucket is not encrypted
+  # bucket does not have access logs
+  # bucket does not have versioning
+  bucket        = "${local.resource_prefix.value}-financials"
+  acl           = "private"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket" "operations" {
